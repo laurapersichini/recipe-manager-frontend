@@ -1,0 +1,46 @@
+<h1 style="
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+  " class="mt-2">
+    Create Recipes
+</h1>
+<div class="example-container">
+    <div class="form-container">
+        <form [formGroup]="loginForm" (submit)="submit()">
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label> Name
+                </mat-label>
+                <input matInput formControlName="name" type="text">
+            </mat-form-field>
+            <br>
+            <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+                <mat-label>Estimate the time required (in minutes)</mat-label>
+                <input matInput formControlName="time_required" type="text">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Difficulty level</mat-label>
+                <mat-select matSelect formControlName="difficulty" type="text">
+                    <mat-option value="Easy">Easy</mat-option>
+                    <mat-option value="Moderate">Moderate</mat-option>
+                    <mat-option value="Difficult">Difficult</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width mt-3" appearance="fill">
+                <mat-label>Provide instructions for the recipe</mat-label>
+                <textarea matInput formControlName="steps_list" type="text"
+                    placeholder="First, preheat the oven to 350..."></textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width mt-3" appearance="fill">
+                <mat-label>Provide ingredients for the recipe</mat-label>
+                <textarea matInput formControlName="ingredients_list" type="text"
+                    placeholder="Cucumber, avocado, pasta sauce..."></textarea>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
