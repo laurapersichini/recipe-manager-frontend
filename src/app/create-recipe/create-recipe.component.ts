@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,6 +15,7 @@ import {RecipesService} from '../recipes.service'
   })
 export class CreateRecipeComponent implements OnInit {
   loginForm!: FormGroup;
+  steps!: string[];
   private url = "http://localhost:3000/recipes"
 
   constructor(
@@ -31,8 +31,16 @@ export class CreateRecipeComponent implements OnInit {
       difficulty: [null, Validators.required],
       image: [null, Validators.required],
       ingredients_list: [null, Validators.required], 
-      steps_list: [null, Validators.required]
+      steps_list: [null]
     });
+
+    this.steps = [];
+  }
+
+  addStep() {
+    console.log(this.loginForm.value);
+    this.steps.push(this.loginForm.value.steps_list);
+    this.loginForm.controls['steps_list'].reset()
   }
 
   submit() {
@@ -40,10 +48,13 @@ export class CreateRecipeComponent implements OnInit {
       console.log("invalid");
       return;
     }
-    this.recipe.postRecipe(this.loginForm!.value).subscribe(data=>{
+
+    const formData = {...this.loginForm.value, steps_list: this.steps}
+
+    this.recipe.postRecipe(formData).subscribe(data=>{
       console.log(data)
     })
-    console.log(this.loginForm!.value);
+    console.log(formData);
     this.router.navigate([''])
   }
 }

@@ -36,9 +36,19 @@
             <br>
             <mat-form-field style="width: 30vw;" class="example-full-width mt-3" appearance="fill">
                 <mat-label>Provide instructions for the recipe</mat-label>
-                <textarea style="height:100px" matInput formControlName="steps_list" type="text"
+                <textarea style="height:40px" matInput formControlName="steps_list" type="text"
                     placeholder="First, preheat the oven to 350..."></textarea>
             </mat-form-field>
+            <div (click)="addStep()"
+                style="background-color: green; width: 150px; color: white; padding: 5px 10px; margin: 0 auto; border-radius: 6px; cursor: pointer;">
+                Add Instruction
+            </div>
+
+            <ol style="width: 30vw; margin: 0 auto;">
+                <div *ngFor="let step of steps" class="" style="text-align: center; width: 25vw;">
+                    <li>{{step}}</li>
+                </div>
+            </ol>
             <br>
             <mat-form-field style="width: 30vw;" class="example-full-width mt-3" appearance="fill">
                 <mat-label>Provide ingredients for the recipe</mat-label>
