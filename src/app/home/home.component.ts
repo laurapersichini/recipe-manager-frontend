@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recipe } from '../data/recipedata'
+import { RecipesService } from '../recipes.service'
 
 @Component({
   selector: 'app-home',
@@ -8,32 +9,20 @@ import { Recipe } from '../data/recipedata'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  recipes: Recipe[] = [
-    {
-      'name': "Pasta",
-      'difficulty': "easy",
-      'time_required': 45,
-      'steps_list': ["go to kitchen", "eat foods"],
-      'description': "easy weeknight recipe",
-      'ingredients_list': ["cheese", "pasta sauce", "onions"],
-      'image': "src/assets/Screen Shot 2022-01-30 at 10.36.09 AM.png"
-    },
-    {
-      'name': "Chicken Stew",
-      'difficulty': "hard",
-      'time_required': 45,
-      'steps_list': ["go to kitchen", "eat foods"],
-      'description': "easy weeknight recipe",
-      'ingredients_list': ["cheese", "pasta sauce", "onions"],
-      'image': "src/assets/Screen Shot 2022-01-30 at 10.36.09 AM.png"
-    }
-  ]
+  recipes: any = []
 
   constructor(
-    private router: Router
-    ) { }
+    private router: Router,
+    private recipe: RecipesService
+    ) { 
+      this.recipe.getAllRecipes().subscribe(data=>{
+        console.log(data)
+        this.recipes= data;
+      })
+    }
 
   ngOnInit(): void {
+    
   }
 
   goToCreateRecipe() {
@@ -44,9 +33,12 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['edit-recipe'])
   }
 
-  onDelete() {
-    console.
-    log("deleted click")
-    console.log(this.recipes)
+  onDelete(recipe: any) {
+    this.recipe.deleteRecipe(recipe._id).subscribe(data=>{
+      console.log(data)
+      this.recipes=this.recipes.filter( (x: any) => x._id !== recipe._id )
+    })
+    console.log("deleted click")
+    console.log(recipe)
   }
 }
